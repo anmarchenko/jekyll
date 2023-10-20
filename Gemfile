@@ -4,6 +4,7 @@ source "https://rubygems.org"
 gemspec :name => "jekyll"
 
 gem "rake", "~> 13.0"
+gem "activesupport", "< 7.1"
 
 group :development do
   gem "launchy", "~> 2.3"

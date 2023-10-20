@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "datadog/ci"
+
 $stdout.puts "# -------------------------------------------------------------"
 $stdout.puts "# SPECS AND TESTS ARE RUNNING WITH WARNINGS OFF."
 $stdout.puts "# SEE: https://github.com/Shopify/liquid/issues/730"
@@ -47,6 +49,13 @@ Minitest::Reporters.use! [
     :color => true
   ),
 ]
+
+Datadog.configure do |c|
+  c.service = "jekyll-unit"
+  c.tracing.enabled = true
+  c.ci.enabled = true
+  c.ci.instrument :minitest
+end
 
 module Minitest::Assertions
   def assert_exist(filename, msg = nil)

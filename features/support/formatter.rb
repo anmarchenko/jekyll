@@ -4,6 +4,7 @@ require "fileutils"
 require "colorator"
 require "cucumber/formatter/console"
 require "cucumber/formatter/io"
+require "datadog/ci"
 
 module Jekyll
   module Cucumber
@@ -221,5 +222,12 @@ AfterConfiguration do |config|
 
   config.on_event :test_run_finished do
     f.print_worst_offenders
+  end
+
+  Datadog.configure do |c|
+    c.service = "jekyll-features"
+    c.tracing.enabled = true
+    c.ci.enabled = true
+    c.ci.instrument :cucumber
   end
 end
