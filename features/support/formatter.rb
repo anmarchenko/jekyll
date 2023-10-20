@@ -5,6 +5,7 @@ require "colorator"
 require "cucumber/formatter/console"
 require "cucumber/formatter/io"
 require "datadog/ci"
+require "ddtrace/auto_instrument"
 
 module Jekyll
   module Cucumber

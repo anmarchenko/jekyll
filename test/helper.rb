@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "datadog/ci"
+require "ddtrace/auto_instrument"
 
 $stdout.puts "# -------------------------------------------------------------"
 $stdout.puts "# SPECS AND TESTS ARE RUNNING WITH WARNINGS OFF."
