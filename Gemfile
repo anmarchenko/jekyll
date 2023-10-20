@@ -15,6 +15,10 @@ end
 #
 
 group :test do
+  # datadog CI visibility
+  gem "ddtrace"
+  gem "datadog-ci", path: "../datadog-ci-rb"
+
   gem "cucumber", RUBY_VERSION >= "2.5" ? "~> 5.1.2" : "~> 4.1"
   gem "httpclient"
   gem "jekyll_test_plugin"
