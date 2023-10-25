@@ -17,8 +17,8 @@ end
 
 group :test do
   # datadog CI visibility
-  gem "ddtrace"
-  gem "datadog-ci", path: "../datadog-ci-rb"
+  gem "datadog-ci", :path => "../datadog-ci-rb"
+  gem "ddtrace", :github => "DataDog/dd-trace-rb", :ref => "1.x-stable"
 
   gem "cucumber", RUBY_VERSION >= "2.5" ? "~> 5.1.2" : "~> 4.1"
   gem "httpclient"
