@@ -21,6 +21,8 @@ group :test do
   gem "ddtrace", :github => "DataDog/dd-trace-rb", :ref => "master"
 
   gem "cucumber", RUBY_VERSION >= "2.5" ? "~> 5.1.2" : "~> 4.1"
+
+  gem "parallel_tests"
   gem "httpclient"
   gem "jekyll_test_plugin"
   gem "jekyll_test_plugin_malicious"
