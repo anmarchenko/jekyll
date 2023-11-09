@@ -108,6 +108,8 @@ class JekyllUnitTest < Minitest::Test
   include DirectoryHelpers
   extend DirectoryHelpers
 
+  parallelize_me!
+
   def mu_pp(obj)
     s = obj.is_a?(Hash) ? JSON.pretty_generate(obj) : obj.inspect
     s = s.encode Encoding.default_external if defined? Encoding
