@@ -53,7 +53,6 @@ Minitest::Reporters.use! [
 
 Datadog.configure do |c|
   c.service = "jekyll-unit"
-  c.tracing.enabled = true
   c.ci.enabled = true
   c.ci.instrument :minitest
 end

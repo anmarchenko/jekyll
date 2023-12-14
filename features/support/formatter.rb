@@ -227,8 +227,8 @@ AfterConfiguration do |config|
 
   Datadog.configure do |c|
     c.service = "jekyll-features"
-    c.tracing.enabled = true
     c.ci.enabled = true
+    c.ci.experimental_test_suite_level_visibility_enabled = true
     c.ci.instrument :cucumber
   end
 end
