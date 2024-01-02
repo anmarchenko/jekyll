@@ -143,7 +143,7 @@ class TestPageWithoutAFile < JekyllUnitTest
       setup do
         clear_dest
         @site.config["title"] = "Test Site"
-        @page = setup_page("physical.html", :base => test_dir("fixtures"))
+        @page = setup_page("physical.html", :base => create_test_dir("fixtures"))
       end
 
       should "receive content provided to it" do

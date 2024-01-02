@@ -597,7 +597,7 @@ class TestFilters < JekyllUnitTest
 
       should "not return the url by reference" do
         filter = make_filter_mock(:baseurl => nil)
-        page = Page.new(filter.site, test_dir("fixtures"), "", "front_matter.erb")
+        page = Page.new(filter.site, create_test_dir("fixtures"), "", "front_matter.erb")
         assert_equal "/front_matter.erb", page.url
         url = filter.relative_url(page.url)
         url << "foo"
