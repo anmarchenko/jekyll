@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "datadog/ci"
-require "ddtrace/auto_instrument"
 
 $stdout.puts "# -------------------------------------------------------------"
 $stdout.puts "# SPECS AND TESTS ARE RUNNING WITH WARNINGS OFF."
@@ -14,17 +12,17 @@ def jruby?
   defined?(RUBY_ENGINE) && RUBY_ENGINE == "jruby"
 end
 
-if ENV["CI"]
-  require "simplecov"
-  SimpleCov.start
-else
-  require File.expand_path("simplecov_custom_profile", __dir__)
-  SimpleCov.start "gem" do
-    add_filter "/vendor/gem"
-    add_filter "/vendor/bundle"
-    add_filter ".bundle"
-  end
-end
+# if ENV["CI"]
+#   require "simplecov"
+#   SimpleCov.start
+# else
+#   require File.expand_path("simplecov_custom_profile", __dir__)
+#   SimpleCov.start "gem" do
+#     add_filter "/vendor/gem"
+#     add_filter "/vendor/bundle"
+#     add_filter ".bundle"
+#   end
+# end
 
 require "nokogiri"
 require "rubygems"
@@ -33,6 +31,16 @@ require "minitest/autorun"
 require "minitest/reporters"
 require "minitest/profile"
 require "rspec/mocks"
+
+require "datadog/ci"
+require "ddtrace/auto_instrument"
+
+Datadog.configure do |c|
+  c.service = "jekyll-unit"
+  c.ci.enabled = true
+  c.ci.instrument :minitest
+end
+
 require_relative "../lib/jekyll"
 
 Jekyll.logger = Logger.new(StringIO.new, :error)
@@ -51,11 +59,6 @@ Minitest::Reporters.use! [
   ),
 ]
 
-Datadog.configure do |c|
-  c.service = "jekyll-unit"
-  c.ci.enabled = true
-  c.ci.instrument :minitest
-end
 
 module Minitest::Assertions
   def assert_exist(filename, msg = nil)
