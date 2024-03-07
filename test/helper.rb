@@ -24,6 +24,9 @@ end
 #   end
 # end
 
+require "datadog/ci"
+require "ddtrace/auto_instrument"
+
 require "nokogiri"
 require "rubygems"
 require "ostruct"
@@ -32,8 +35,6 @@ require "minitest/reporters"
 require "minitest/profile"
 require "rspec/mocks"
 
-require "datadog/ci"
-require "ddtrace/auto_instrument"
 
 Datadog.configure do |c|
   c.service = "jekyll-unit"
