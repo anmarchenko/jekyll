@@ -39,6 +39,7 @@ require "rspec/mocks"
 Datadog.configure do |c|
   c.service = "jekyll-unit"
   c.ci.enabled = true
+  c.ci.itr_enabled = true
   c.ci.instrument :minitest
 end
 
