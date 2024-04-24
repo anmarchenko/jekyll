@@ -37,6 +37,8 @@ class TestDataReader < JekyllUnitTest
         "headers"        => false,
       }
 
+
+
       @reader = DataReader.new(
         fixture_site(
           {
