@@ -19,6 +19,8 @@ class TestDoctorCommand < JekyllUnitTest
         ret = Jekyll::Commands::Doctor.urls_only_differ_by_case(@site)
         refute ret
       end
+
+
       assert_equal "", output
     end
 
