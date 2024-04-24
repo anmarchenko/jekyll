@@ -25,7 +25,7 @@ end
 # end
 
 require "datadog/ci"
-require "ddtrace/auto_instrument"
+require "datadog/auto_instrument"
 
 require "nokogiri"
 require "rubygems"

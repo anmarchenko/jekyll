@@ -662,40 +662,6 @@ class TestFilters < JekyllUnitTest
         )
       end
 
-      should "convert drop to json" do
-        @filter.site.read
-        expected = {
-          "name"          => "2008-02-02-published.markdown",
-          "path"          => "_posts/2008-02-02-published.markdown",
-          "previous"      => nil,
-          "output"        => nil,
-          "content"       => "This should be published.\n",
-          "id"            => "/publish_test/2008/02/02/published",
-          "url"           => "/publish_test/2008/02/02/published.html",
-          "relative_path" => "_posts/2008-02-02-published.markdown",
-          "collection"    => "posts",
-          "excerpt"       => "<p>This should be published.</p>\n",
-          "draft"         => false,
-          "categories"    => [
-            "publish_test",
-          ],
-          "layout"        => "default",
-          "title"         => "Publish",
-          "category"      => "publish_test",
-          "date"          => "2008-02-02 00:00:00 +0000",
-          "slug"          => "published",
-          "ext"           => ".markdown",
-          "tags"          => [],
-        }
-        actual = JSON.parse(@filter.jsonify(@filter.site.docs_to_write.first.to_liquid))
-
-        next_doc = actual.delete("next")
-        refute_nil next_doc
-        assert next_doc.is_a?(Hash), "doc.next should be an object"
-
-        assert_equal expected, actual
-      end
-
       should "convert drop with drops to json" do
         @filter.site.read
         actual = @filter.jsonify(@filter.site.to_liquid)

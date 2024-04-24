@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "datadog/ci"
-require "ddtrace/auto_instrument"
+require "datadog/auto_instrument"
 
 Datadog.configure do |c|
   c.service = "jekyll-features"
