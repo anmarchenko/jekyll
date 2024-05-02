@@ -33,6 +33,9 @@ class TestPluginManager < JekyllUnitTest
         with_bundle_gemfile do
           assert Jekyll::PluginManager.require_from_bundler,
                  "require_from_bundler should return true"
+
+
+
           assert ENV["JEKYLL_NO_BUNDLER_REQUIRE"], "Gemfile plugins were not required."
         end
       end

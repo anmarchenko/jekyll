@@ -63,6 +63,8 @@ Feature: Link Tag
     And the _site directory should not exist
     And I should see "Could not find document 'contact.md' in tag 'link'" in the build output
 
+
+
   Scenario: Complex site with a variety of files
     Given I have an "index.md" page that contains "[About my projects]({% link about.md %})"
     And I have an "about.md" page that contains "[Latest Hack]({% link _posts/2018-02-15-metaprogramming.md %})"
