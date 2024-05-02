@@ -26,7 +26,6 @@ module Jekyll
       if site.theme && site.theme.layouts_path.eql?(base)
         @base_dir = site.theme.root
 
-
         @path = site.in_theme_dir(base, name)
       else
         @base_dir = site.source
