@@ -7,6 +7,7 @@ Datadog.configure do |c|
   c.service = "jekyll-features"
   c.ci.enabled = true
   c.ci.instrument :cucumber
+  c.ci.itr_enabled = true
 end
 
 require "jekyll"
