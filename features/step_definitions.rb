@@ -419,7 +419,7 @@ end
 
 Then "it maybe flakes"  do
   random_number = rand(1..10)
-  if random_number.even?
+  if random_number < 7
     raise "Flaky test!"
   end
 end

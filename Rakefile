@@ -145,6 +145,7 @@ end
 begin
   require "cucumber/rake/task"
   Cucumber::Rake::Task.new(:features) do |t|
+    t.cucumber_opts = %w[--retry 5]
     t.profile = "travis"
   end
   Cucumber::Rake::Task.new(:"features:html", "Run Cucumber features and produce HTML output") do |t|
