@@ -8,6 +8,7 @@ Feature: Cache
     And I have a configuration file with "title" set to "Hello World"
     When I run jekyll build
     Then I should get a zero exit status
+    And it maybe flakes
     And the .jekyll-cache directory should exist
     And the .jekyll-cache/Jekyll/Cache/Jekyll--Cache directory should exist
     And the _site directory should exist

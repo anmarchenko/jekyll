@@ -415,3 +415,11 @@ end
 Then(%r!^I should get a non-zero exit(?:\-| )status$!) do
   step %(I should not see "EXIT STATUS: 0" in the build output)
 end
+
+
+Then "it maybe flakes"  do
+  random_number = rand(1..10)
+  if random_number.even?
+    raise "Flaky test!"
+  end
+end
