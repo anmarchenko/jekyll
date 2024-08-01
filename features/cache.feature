@@ -3,8 +3,6 @@ Feature: Cache
   I want to be able to cache certain aspects across multiple builds
   And retrieve the cached aspects when needed
 
-
-
   Scenario: Default Cache directory
     Given I have an "index.md" page that contains "{{ site.title }}"
     And I have a configuration file with "title" set to "Hello World"
