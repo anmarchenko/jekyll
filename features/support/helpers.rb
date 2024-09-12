@@ -1,15 +1,5 @@
 # frozen_string_literal: true
 
-require "datadog/ci"
-require "datadog/auto_instrument"
-
-Datadog.configure do |c|
-  c.service = "jekyll-features"
-  c.ci.enabled = true
-  c.ci.instrument :cucumber
-  c.ci.itr_enabled = true
-end
-
 require "jekyll"
 
 class Paths
