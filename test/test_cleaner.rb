@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "helper"
+require_relative "helper"
 
 class TestCleaner < JekyllUnitTest
   context "directory in keep_files" do

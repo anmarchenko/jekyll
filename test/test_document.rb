@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "helper"
+require_relative "helper"
 
 class TestDocument < JekyllUnitTest
   def assert_equal_value(key, one, other)

@@ -14,12 +14,9 @@ group :development do
 end
 
 #
+gem "openssl", ">= 3.3.1"
 
 group :test do
-  # datadog CI visibility
-  gem "datadog", :github => "DataDog/dd-trace-rb", :ref => "master"
-  gem "datadog-ci", :path => "../datadog-ci-rb"
-
   gem "cucumber", RUBY_VERSION >= "2.5" ? "~> 5.1.2" : "~> 4.1"
 
   gem "parallel_tests"
