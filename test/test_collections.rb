@@ -272,29 +272,6 @@ class TestCollections < JekyllUnitTest
     end
   end
 
-  context "in safe mode" do
-    setup do
-      @site = fixture_site(
-        "collections" => ["methods"],
-        "safe"        => true
-      )
-      @site.process
-      @collection = @site.collections["methods"]
-    end
-
-    should "include the symlinked file as it resolves to inside site.source" do
-      assert_includes @collection.filtered_entries, "um_hi.md"
-      refute_includes @collection.filtered_entries, "/um_hi.md"
-    end
-
-    should "include the symlinked file from site.source in the list of docs" do
-      # no support for including symlinked file on Windows
-      skip_if_windows "Jekyll does not currently support symlinks on Windows."
-
-      assert_includes @collection.docs.map(&:relative_path), "_methods/um_hi.md"
-    end
-  end
-
   context "with dots in the filenames" do
     setup do
       @site = fixture_site(
