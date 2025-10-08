@@ -7,57 +7,62 @@ $LOAD_PATH.unshift File.expand_path("test", __dir__)
 require "minitest"
 require_relative "../test/helper.rb"
 
-require "datadog/ci"
+test_session = nil
+test_module = nil
+
+if ENV["DD_ENV"] == "ci"
+  require "datadog/ci"
 
 # this is the monkey patch needed to prevent minitest instrumentation from starting and stopping test session for every test file
-module Datadog
-  module CI
-    module Contrib
-      module Minitest
-        module Runner
-          module ClassMethods
-            def init_plugins(*args)
-              super
+  module Datadog
+    module CI
+      module Contrib
+        module Minitest
+          module Runner
+            module ClassMethods
+              def init_plugins(*args)
+                super
+              end
             end
           end
         end
       end
     end
   end
-end
 
-module Datadog
-  module CI
-    module Contrib
-      module Minitest
-        module Reporter
-          module InstanceMethods
-            def report(*args)
-              super
+  module Datadog
+    module CI
+      module Contrib
+        module Minitest
+          module Reporter
+            module InstanceMethods
+              def report(*args)
+                super
+              end
             end
           end
         end
       end
     end
   end
-end
 
 # normal Datadog configuration
-Datadog.configure do |c|
-  c.ci.enabled = true
-  c.ci.agentless_mode_enabled = true
-  c.env = 'ci'
-  c.ci.instrument :minitest
-end
+  Datadog.configure do |c|
+    c.ci.enabled = true
+    c.ci.agentless_mode_enabled = true
+    c.env = 'ci'
+    c.ci.instrument :minitest
+  end
 
 # we start test session and test module here using datadog-ci's public API
-test_session = Datadog::CI.start_test_session(
-  tags: {
-    Datadog::CI::Ext::Test::TAG_FRAMEWORK => Datadog::CI::Contrib::Minitest::Ext::FRAMEWORK,
-    Datadog::CI::Ext::Test::TAG_FRAMEWORK_VERSION => Minitest::VERSION
-  }
-)
-test_module = Datadog::CI.start_test_module(Datadog::CI::Contrib::Minitest::Ext::FRAMEWORK)
+  test_session = Datadog::CI.start_test_session(
+    tags: {
+      Datadog::CI::Ext::Test::TAG_FRAMEWORK => Datadog::CI::Contrib::Minitest::Ext::FRAMEWORK,
+      Datadog::CI::Ext::Test::TAG_FRAMEWORK_VERSION => Minitest::VERSION
+    }
+  )
+  test_module = Datadog::CI.start_test_module(Datadog::CI::Contrib::Minitest::Ext::FRAMEWORK)
+end
 
 test_files = [
   "test/test_ansi.rb",
@@ -96,16 +101,18 @@ end
 
 puts "All test files completed!"
 
-# here we mark test session and test module as passed or failed and finish them
-if failed
-  p "test session failed!!"
-  test_module.failed!
-  test_session.failed!
-else
-  p "test session passed!"
-  test_module.passed!
-  test_session.passed!
-end
+if ENV["DD_ENV"] == "ci"
+  # here we mark test session and test module as passed or failed and finish them
+  if failed
+    p "test session failed!!"
+    test_module.failed!
+    test_session.failed!
+  else
+    p "test session passed!"
+    test_module.passed!
+    test_session.passed!
+  end
 
-test_module.finish
-test_session.finish
+  test_module.finish
+  test_session.finish
+end
