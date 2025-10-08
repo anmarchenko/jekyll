@@ -24,23 +24,12 @@ end
 #   end
 # end
 
-require "datadog/ci"
-require "datadog/auto_instrument"
-
 require "nokogiri"
 require "rubygems"
 require "ostruct"
 require "minitest/reporters"
 require "minitest/profile"
 require "rspec/mocks"
-
-
-Datadog.configure do |c|
-  c.service = "jekyll-unit"
-  c.ci.enabled = true
-  c.ci.itr_enabled = true
-  c.ci.instrument :minitest
-end
 
 require_relative "../lib/jekyll"
 
